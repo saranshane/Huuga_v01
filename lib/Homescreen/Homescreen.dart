@@ -120,9 +120,9 @@ class Homescreen extends StatelessWidget {
         child: Column(
           children: [
             TabBar(
-              labelColor: Colors.pink[600],
+              labelColor: Color(0xFF9431A5),
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.pink[600],
+              indicatorColor: Color(0xFF9431A5),
               tabs: [
                 Tab(text: 'Primary'),
                 Tab(text: 'Requests'),
@@ -205,7 +205,7 @@ class Homescreen extends StatelessWidget {
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.all(5.0),
+                                                padding: EdgeInsets.all(13.0),
                                                 child: Text(
                                                   'Accept & Talk',
                                                   style: TextStyle(color: Colors.white),

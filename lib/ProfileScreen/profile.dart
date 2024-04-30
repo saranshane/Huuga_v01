@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/Homescreen/Homescreen.dart';
 import 'package:login/settings/settings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,19 +17,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late String description;
 
   @override
-  void initState() {
-    super.initState();
-    loadUserData();
-  }
+  // void initState() {
+  //   super.initState();
+  //   loadUserData();
+  // }
 
-  Future<void> loadUserData() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      nickname = prefs.getString('nickname') ?? 'John Doe';
-      gender = prefs.getString('gender') ?? '';
-      description = prefs.getString('description') ?? '';
-    });
-  }
+  // Future<void> loadUserData() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     nickname = prefs.getString('nickname') ?? 'John Doe';
+  //     gender = prefs.getString('gender') ?? '';
+  //     description = prefs.getString('description') ?? '';
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
