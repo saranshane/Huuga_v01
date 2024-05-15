@@ -1,17 +1,26 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/Homescreen/Homescreen.dart';
+import 'package:login/OnBoarding/Entry_Screen.dart';
+import 'package:login/Homescreen/Home_Screen.dart';
 
-class Registration extends StatelessWidget {
-  final ProfileController profileController = Get.put(ProfileController());
+class RegistrationController extends GetxController {
+  var selectedGender = 'Male'.obs; // Observable variable for selected gender
+  var nickname = ''.obs; // Observable variable for nickname
+  var description = ''.obs; // Observable variable for description
 
+  // Function to update selected gender
+  void updateSelectedGender(String gender) {
+    selectedGender.value = gender;
+  }
+
+  // Function to submit profile details to the server
   Future<void> submitProfileDetails(
       String userId, String nickname, String gender, String description) async {
     try {
-      final Uri url = Uri.parse('http://172.20.10.3:3000/auth/updateuserinfo');
+      final Uri url = Uri.parse('http://localhost:3000/auth/updateuserinfo');
       final Map<String, String> body = {
         'userId': userId,
         'name': nickname,
@@ -26,10 +35,12 @@ class Registration extends StatelessWidget {
       );
 
       if (response.statusCode == 200) {
-        saveDataToSharedPreferences(nickname, gender, description);
+        await saveDataToSharedPreferences(
+            nickname, gender, description); // Save data to SharedPreferences
         print('User info updated successfully');
         print(response.body);
-        Get.to(Homescreen());
+        Get.offAll(() =>
+            Homescreen()); // Navigate to HomeScreen after successful update
       } else {
         print('Failed to update user details. Error: ${response.body}');
         // Handle error
@@ -40,13 +51,20 @@ class Registration extends StatelessWidget {
     }
   }
 
+  // Function to save data to SharedPreferences
   Future<void> saveDataToSharedPreferences(
       String nickname, String gender, String description) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('nickname', nickname);
     await prefs.setString('gender', gender);
     await prefs.setString('description', description);
+    await prefs.setBool(EntryScreen.keyLogin, true); // Set login status
   }
+}
+
+class Registration extends StatelessWidget {
+  final RegistrationController registrationController =
+      Get.put(RegistrationController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +74,7 @@ class Registration extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            AppBarContent(),
+            AppBarContent(), // Display app bar content
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
@@ -111,7 +129,7 @@ class Registration extends StatelessWidget {
                       SizedBox(height: 10),
                       TextFormField(
                         onChanged: (value) {
-                          profileController.nickname.value = value;
+                          registrationController.nickname.value = value;
                         },
                         decoration: InputDecoration(
                           labelText: 'Enter Your Nickname',
@@ -158,7 +176,7 @@ class Registration extends StatelessWidget {
                       SizedBox(height: 10),
                       TextFormField(
                         onChanged: (value) {
-                          profileController.description.value = value;
+                          registrationController.description.value = value;
                         },
                         decoration: InputDecoration(
                           labelText: 'Enter The Text',
@@ -169,16 +187,17 @@ class Registration extends StatelessWidget {
                       SizedBox(height: 40),
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {
-                            String nickname = profileController.nickname.value;
+                          onPressed: () async {
+                            String nickname =
+                                registrationController.nickname.value;
                             String gender =
-                                profileController.selectedGender.value;
+                                registrationController.selectedGender.value;
                             String description =
-                                profileController.description.value;
+                                registrationController.description.value;
                             if (nickname.isNotEmpty &&
                                 gender.isNotEmpty &&
                                 description.isNotEmpty) {
-                              submitProfileDetails(
+                              registrationController.submitProfileDetails(
                                   userId, nickname, gender, description);
                             } else {
                               print('Please fill up all fields');
@@ -226,12 +245,13 @@ class Registration extends StatelessWidget {
     );
   }
 
+  // Widget for gender choice chip
   Widget genderChoiceChip({required String label, required String gender}) {
     return ChoiceChip(
       label: Text(label),
-      selected: profileController.selectedGender.value == gender,
+      selected: registrationController.selectedGender.value == gender,
       onSelected: (selected) {
-        profileController.updateSelectedGender(gender);
+        registrationController.updateSelectedGender(gender);
       },
     );
   }
@@ -244,20 +264,11 @@ class AppBarContent extends StatelessWidget {
       height: 320,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/Fill_up_Profile.jpeg'),
+          image: AssetImage(
+              'assets/images/Fill_up_Profile.jpeg'), // Set app bar background image
           fit: BoxFit.fill,
         ),
       ),
     );
-  }
-}
-
-class ProfileController extends GetxController {
-  RxString selectedGender = 'Male'.obs;
-  RxString nickname = ''.obs;
-  RxString description = ''.obs;
-
-  void updateSelectedGender(String gender) {
-    selectedGender.value = gender;
   }
 }

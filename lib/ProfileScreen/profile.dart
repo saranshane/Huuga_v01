@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Homescreen/Homescreen.dart';
-import 'package:login/settings/settings.dart';
+import 'package:login/Homescreen/Home_Screen.dart';
+import 'package:login/Settings/Settings_Screen.dart'; // Import settings screen
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -19,15 +19,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    loadUserData();
+    loadUserData(); // Load user data when the screen initializes
   }
 
+  // Function to load user data from SharedPreferences
   Future<void> loadUserData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      nickname = prefs.getString('nickname') ?? 'John Doe';
-      gender = prefs.getString('gender') ?? '';
-      description = prefs.getString('description') ?? '';
+      nickname = prefs.getString('nickname') ??
+          'John Doe'; // Set default nickname if not available
+      gender = prefs.getString('gender') ??
+          ''; // Set default gender if not available
+      description = prefs.getString('description') ??
+          ''; // Set default description if not available
     });
   }
 
@@ -38,16 +42,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Get.to(Homescreen());
+            Get.to(Homescreen()); // Navigate back to HomeScreen
           },
         ),
         title: Text('My Profile'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings), // Icon for settings
             onPressed: () {
-              Get.to(settingsScreen());
+              Get.to(settingsScreen()); // Navigate to settings screen
             },
           ),
         ],
@@ -63,12 +67,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   const CircleAvatar(
                     radius: 60,
-                    backgroundImage: AssetImage('assets/images/avatar7.png'),
+                    backgroundImage: AssetImage(
+                        'assets/images/avatar7.png'), // Display user avatar
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildGenderIcon(gender),
+                      _buildGenderIcon(gender), // Display gender icon
                       Text(
                         nickname,
                         style: TextStyle(
@@ -76,7 +81,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textAlign: TextAlign.center,
                       ),
                       IconButton(
-                        icon: Icon(Icons.edit, size: 14, color: Colors.black38),
+                        icon: Icon(Icons.edit,
+                            size: 14,
+                            color: Colors.black38), // Icon for editing nickname
                         onPressed: () {
                           // Add functionality to edit nickname
                         },
@@ -86,7 +93,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.verified, size: 14, color: Colors.pinkAccent),
+                      Icon(Icons.verified,
+                          size: 14, color: Colors.pinkAccent), // Verified icon
                       Text(
                         '80+ chats completed',
                         style: TextStyle(
@@ -100,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Flexible(
                         child: Text(
-                          description,
+                          description, // Display user description
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -113,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Icons.edit,
                           size: 14,
                           color: Colors.black38,
-                        ),
+                        ), // Icon for editing description
                         onPressed: () {
                           // Add functionality to edit description
                         },
@@ -129,7 +137,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 250,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/INBOXPROFILEBANNER.jpg'),
+                image: AssetImage(
+                    'assets/images/INBOXPROFILEBANNER.jpg'), // Display profile banner
                 fit: BoxFit.fill,
               ),
             ),
@@ -140,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/Hygge_Text_Banner.png',
+                  'assets/images/Hygge_Text_Banner.png', // Hygge text banner
                   height: 20,
                   width: 40,
                   fit: BoxFit.fill,
@@ -163,25 +172,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  // Widget to build gender icon based on gender
   Widget _buildGenderIcon(String gender) {
     IconData icon;
     Color color;
 
     switch (gender) {
       case 'male':
-        icon = Icons.male_rounded;
+        icon = Icons.male_rounded; // Male icon
         color = Colors.blue;
         break;
       case 'female':
-        icon = Icons.female_rounded;
+        icon = Icons.female_rounded; // Female icon
         color = Colors.pinkAccent;
         break;
       default:
-        icon = Icons.transgender;
+        icon = Icons.transgender; // Transgender icon
         color = Colors.orange;
         break;
     }
 
-    return Icon(icon, size: 26, color: color);
+    return Icon(icon, size: 26, color: color); // Return gender icon
   }
 }

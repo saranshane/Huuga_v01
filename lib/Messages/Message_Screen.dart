@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:login/Homescreen/Homescreen.dart';
+import 'package:login/Homescreen/Home_Screen.dart';
 import '../constants.dart';
 import 'package:login/models/ChatMessage.dart';
 
-
-class MessagesScreen extends StatelessWidget {
+class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +85,8 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: ListView.builder(
               itemCount: demoChatMessages.length,
-              itemBuilder: (context, index) => Message(message: demoChatMessages[index]),
+              itemBuilder: (context, index) =>
+                  Message(message: demoChatMessages[index]),
             ),
           ),
         ),
@@ -107,9 +107,10 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment:
+          message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        if (!message.isSender)...[
+        if (!message.isSender) ...[
           CircleAvatar(
             radius: 12,
             backgroundImage: AssetImage("assets/images/avatar3.png"),
@@ -139,7 +140,8 @@ class TextMessage extends StatelessWidget {
         vertical: kDefaultPadding / 2,
       ),
       decoration: BoxDecoration(
-        color: message.isSender ? kPrimaryColor : kPrimaryColor.withOpacity(0.1),
+        color:
+            message.isSender ? kPrimaryColor : kPrimaryColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Text(
@@ -172,7 +174,8 @@ class ChatInputField extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.10),
+                padding:
+                    EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.10),
                 decoration: BoxDecoration(
                   color: kPrimaryColor.withOpacity(0.05),
                   borderRadius: BorderRadius.circular(40),
@@ -186,7 +189,8 @@ class ChatInputField extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: 'Type a message...',
                             hintStyle: TextStyle(color: Colors.grey),
-                            contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -220,7 +224,8 @@ class ChatInputField extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(6.0),
-                                      child: Icon(Icons.send_rounded, color: Colors.white),
+                                      child: Icon(Icons.send_rounded,
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ),
