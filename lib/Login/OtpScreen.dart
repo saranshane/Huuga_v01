@@ -54,7 +54,7 @@ class OtpVerificationController extends GetxController {
 
   Future<void> verifyOTP(String otp, String type, String contact) async {
     try {
-      String url = 'http://localhost:3000/auth/verifyotp';
+      String url = 'http://172.20.10.5:3000/auth/verifyotp';
       Map<String, String> body = {
         'type': type,
         'contact': contact,

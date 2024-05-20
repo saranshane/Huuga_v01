@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:login/models/chart.dart';
-import 'package:login/Messages/Message_Screen.dart';
+import 'package:login/Messages/MessageScreen.dart';
 import 'package:login/constants.dart';
 
 class Body extends StatefulWidget {

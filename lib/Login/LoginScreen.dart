@@ -3,7 +3,7 @@ import 'package:get/get.dart'; // Import Get package
 import 'package:http/http.dart' as http; // Import http package
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/Login/Otp_Screen.dart';
+import 'package:login/Login/OtpScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -37,9 +37,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.all(20),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Welcome Back',
@@ -169,7 +169,7 @@ class LoginScreen extends StatelessWidget {
 
   Future<void> sendOTP(String type, String contact) async {
     // Define your backend URL
-    String url = 'http://localhost:3000/auth/sendotp';
+    String url = 'http://172.20.10.5:3000/auth/sendotp';
 
     // Prepare the request body as a Map
     Map<String, String> body = {"type": type, "contact": contact};

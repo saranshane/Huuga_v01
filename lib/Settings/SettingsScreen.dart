@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/ProfileScreen/profile.dart';
+import 'package:login/Profile/ProfileScreen.dart';
 
 class settingsScreen extends StatelessWidget {
   @override

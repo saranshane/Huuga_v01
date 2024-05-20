@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Homescreen/Home_Screen.dart';
-import 'package:login/Settings/Settings_Screen.dart'; // Import settings screen
+import 'package:login/Home/HomeScreen.dart';
+import 'package:login/Settings/SettingsScreen.dart'; // Import settings screen
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {

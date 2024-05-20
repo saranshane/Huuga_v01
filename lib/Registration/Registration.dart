@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/OnBoarding/Entry_Screen.dart';
-import 'package:login/Homescreen/Home_Screen.dart';
+import 'package:login/OnBoarding/EntryScreen.dart';
+import 'package:login/Home/HomeScreen.dart';
 
 class RegistrationController extends GetxController {
   var selectedGender = 'Male'.obs; // Observable variable for selected gender
@@ -20,7 +20,7 @@ class RegistrationController extends GetxController {
   Future<void> submitProfileDetails(
       String userId, String nickname, String gender, String description) async {
     try {
-      final Uri url = Uri.parse('http://localhost:3000/auth/updateuserinfo');
+      final Uri url = Uri.parse('http://172.20.10.5:3000/auth/updateuserinfo');
       final Map<String, String> body = {
         'userId': userId,
         'name': nickname,

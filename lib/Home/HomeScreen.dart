@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/ProfileScreen/profile.dart';
-import 'package:login/Homescreen/Inbox_Body.dart';
+import 'package:login/Profile/ProfileScreen.dart';
+import 'package:login/Home/InboxBody.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:login/models/friends_List.dart';
