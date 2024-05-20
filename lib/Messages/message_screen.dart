@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/Home/HomeScreen.dart';
+import 'package:login/Home/home_screen.dart';
 import '../constants.dart';
 import 'package:login/models/ChatMessage.dart';
 
@@ -22,7 +22,7 @@ class MessageScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Homescreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
           ),

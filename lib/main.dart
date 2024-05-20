@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Home/HomeScreen.dart';
-import 'package:login/Login/OtpScreen.dart';
-import 'package:login/OnBoarding/EntryScreen.dart';
-import 'package:login/OnBoarding/OnboardingScreen.dart';
-import 'package:login/Login/LoginScreen.dart';
-import 'package:login/Registration/Registration.dart';
-import 'package:login/Profile/ProfileScreen.dart';
+import 'package:login/Home/home_screen.dart';
+import 'package:login/Login/otp_screen.dart';
+import 'package:login/OnBoarding/entry_screen.dart';
+import 'package:login/OnBoarding/onboarding_screen.dart';
+import 'package:login/Login/login_screen.dart';
+import 'package:login/Registration/registration_screen.dart';
+import 'package:login/Profile/profile_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/Registration',
             page: () => Registration()), // Registration Screen
-        GetPage(name: '/HomeScreen', page: () => Homescreen()), // Home Screen
+        GetPage(name: '/HomeScreen', page: () => HomeScreen()), // Home Screen
         GetPage(
             name: '/profilescreen',
             page: () => ProfileScreen()) // Profile Screen

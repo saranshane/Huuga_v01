@@ -43,5 +43,4 @@ List demoChatMessages = [
     messageStatus: MessageStatus.viewed,
     isSender: true,
   ),
-
 ];

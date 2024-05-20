@@ -3,97 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:login/Registration/Registration.dart';
-
-class OtpVerificationController extends GetxController {
-  late String type;
-  late String contact;
-  late RxInt timerSeconds;
-
-  Timer? _timer;
-
-  List<TextEditingController> controllers = List.generate(
-    4,
-    (index) => TextEditingController(),
-  );
-
-  List<FocusNode> focusNodes = List.generate(
-    4,
-    (index) => FocusNode(),
-  );
-
-  @override
-  void onInit() {
-    timerSeconds = 60.obs; // Initialize timerSeconds with 60 seconds
-    type = '';
-    contact = '';
-    super.onInit();
-  }
-
-  void init(String type, String contact) {
-    this.type = type;
-    this.contact = contact;
-    startTimer(); // Start the timer when initialized
-  }
-
-  void startTimer() {
-    timerSeconds.value = 60;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (timerSeconds.value > 0) {
-        timerSeconds.value--;
-      } else {
-        _timer?.cancel();
-      }
-    });
-  }
-
-  void resendOTP() {
-    // Implement logic to resend OTP
-    startTimer();
-  }
-
-  Future<void> verifyOTP(String otp, String type, String contact) async {
-    try {
-      String url = 'http://172.20.10.5:3000/auth/verifyotp';
-      Map<String, String> body = {
-        'type': type,
-        'contact': contact,
-        'otp': otp,
-      };
-
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(body),
-      );
-
-      if (response.statusCode == 200) {
-        // OTP verified successfully
-        print("OTP verified successfully");
-        Map<String, dynamic> data = jsonDecode(response.body);
-        String userId = data["user"]["_id"];
-        print(userId);
-        // Navigate to the ProfileScreen and pass user ID as an argument
-        Get.to(Registration(), arguments: {'userId': userId});
-
-        // Reset the timer upon successful OTP verification
-        timerSeconds.value = 0;
-
-        // Handle success scenario
-      } else {
-        // OTP verification failed
-        print('Error verifying OTP: ${response.body}');
-
-        // Handle failure scenario
-        // You can display an error message to the user here
-      }
-    } catch (error) {
-      print('Error verifying OTP: $error');
-
-      // Display error message to user
-    }
-  }
-}
+import 'package:login/Registration/registration_screen.dart';
 
 class OtpScreen extends StatelessWidget {
   final OtpVerificationController otpController =
@@ -280,5 +190,95 @@ class ProfileController extends GetxController {
 
   void updateSelectedGender(String gender) {
     selectedGender.value = gender;
+  }
+}
+
+class OtpVerificationController extends GetxController {
+  late String type;
+  late String contact;
+  late RxInt timerSeconds;
+
+  Timer? _timer;
+
+  List<TextEditingController> controllers = List.generate(
+    4,
+    (index) => TextEditingController(),
+  );
+
+  List<FocusNode> focusNodes = List.generate(
+    4,
+    (index) => FocusNode(),
+  );
+
+  @override
+  void onInit() {
+    timerSeconds = 60.obs; // Initialize timerSeconds with 60 seconds
+    type = '';
+    contact = '';
+    super.onInit();
+  }
+
+  void init(String type, String contact) {
+    this.type = type;
+    this.contact = contact;
+    startTimer(); // Start the timer when initialized
+  }
+
+  void startTimer() {
+    timerSeconds.value = 60;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (timerSeconds.value > 0) {
+        timerSeconds.value--;
+      } else {
+        _timer?.cancel();
+      }
+    });
+  }
+
+  void resendOTP() {
+    // Implement logic to resend OTP
+    startTimer();
+  }
+
+  Future<void> verifyOTP(String otp, String type, String contact) async {
+    try {
+      String url = 'http://172.20.10.5:3000/auth/verifyotp';
+      Map<String, String> body = {
+        'type': type,
+        'contact': contact,
+        'otp': otp,
+      };
+
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode == 200) {
+        // OTP verified successfully
+        print("OTP verified successfully");
+        Map<String, dynamic> data = jsonDecode(response.body);
+        String userId = data["user"]["_id"];
+        print(userId);
+        // Navigate to the ProfileScreen and pass user ID as an argument
+        Get.to(Registration(), arguments: {'userId': userId});
+
+        // Reset the timer upon successful OTP verification
+        timerSeconds.value = 0;
+
+        // Handle success scenario
+      } else {
+        // OTP verification failed
+        print('Error verifying OTP: ${response.body}');
+
+        // Handle failure scenario
+        // You can display an error message to the user here
+      }
+    } catch (error) {
+      print('Error verifying OTP: $error');
+
+      // Display error message to user
+    }
   }
 }

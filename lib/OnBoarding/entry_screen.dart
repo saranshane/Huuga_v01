@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/Home/HomeScreen.dart';
-import 'package:login/OnBoarding/OnboardingScreen.dart';
+import 'package:login/Home/home_screen.dart';
+import 'package:login/OnBoarding/onboarding_screen.dart';
 
 // Controller for entry screen logic
 class EntryController extends GetxController {
@@ -15,7 +15,7 @@ class EntryController extends GetxController {
 
     // Navigate to HomeScreen if logged in, otherwise navigate to OnboardingScreen
     isLoggedIn
-        ? Get.offAll(() => Homescreen()) // Navigate to HomeScreen
+        ? Get.offAll(() => HomeScreen()) // Navigate to HomeScreen
         : Get.offAll(() => OnboardingScreen()); // Navigate to OnboardingScreen
   }
 }

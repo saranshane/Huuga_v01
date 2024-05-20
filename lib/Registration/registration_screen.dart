@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/OnBoarding/EntryScreen.dart';
-import 'package:login/Home/HomeScreen.dart';
+import 'package:login/OnBoarding/entry_screen.dart';
+import 'package:login/Home/home_screen.dart';
 
 class RegistrationController extends GetxController {
   var selectedGender = 'Male'.obs; // Observable variable for selected gender
@@ -40,7 +40,7 @@ class RegistrationController extends GetxController {
         print('User info updated successfully');
         print(response.body);
         Get.offAll(() =>
-            Homescreen()); // Navigate to HomeScreen after successful update
+            HomeScreen()); // Navigate to HomeScreen after successful update
       } else {
         print('Failed to update user details. Error: ${response.body}');
         // Handle error

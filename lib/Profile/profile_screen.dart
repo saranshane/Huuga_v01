@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Home/HomeScreen.dart';
-import 'package:login/Settings/SettingsScreen.dart'; // Import settings screen
+import 'package:login/Home/home_screen.dart';
+import 'package:login/Settings/settings_screen.dart'; // Import settings screen
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Get.to(Homescreen()); // Navigate back to HomeScreen
+            Get.to(HomeScreen()); // Navigate back to HomeScreen
           },
         ),
         title: Text('My Profile'),

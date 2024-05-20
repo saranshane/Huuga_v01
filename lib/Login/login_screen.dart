@@ -3,7 +3,7 @@ import 'package:get/get.dart'; // Import Get package
 import 'package:http/http.dart' as http; // Import http package
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/Login/OtpScreen.dart';
+import 'package:login/Login/otp_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Profile/ProfileScreen.dart';
-import 'package:login/Home/InboxBody.dart';
+import 'package:login/Profile/profile_screen.dart';
+import 'package:login/Home/inbox_body.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:login/models/friends_List.dart';
+import 'package:login/Models/friends_list.dart';
 
-class Homescreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
