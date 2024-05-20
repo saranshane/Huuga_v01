@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/home/home_screen.dart';
-import 'package:login/Settings/settings_screen.dart'; // Import settings screen
+import 'package:login/settings/settings_screen.dart'; // Import settings screen
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:login/constants.dart'; // Import the constants file
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -27,9 +28,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       nickname = prefs.getString('nickname') ??
-          'John Doe'; // Set default nickname if not available
+          AppStrings.profnickname; // Set default nickname if not available
       gender = prefs.getString('gender') ??
-          ''; // Set default gender if not available
+          AppStrings.genderOther; // Set default gender if not available
       description = prefs.getString('description') ??
           ''; // Set default description if not available
     });
@@ -45,17 +46,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Get.to(HomeScreen()); // Navigate back to HomeScreen
           },
         ),
-        title: Text('My Profile'),
+        title: Text(AppStrings.myProfile),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(Icons.settings), // Icon for settings
             onPressed: () {
-              Get.to(settingsScreen()); // Navigate to settings screen
+              Get.to(SettingsScreen()); // Navigate to settings screen
             },
           ),
         ],
-        toolbarHeight: 60, // Adjust this value as needed
+        toolbarHeight:
+            AppDimensions.toolbarHeight, // Adjust this value as needed
       ),
       body: Column(
         children: [
@@ -66,9 +68,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const CircleAvatar(
-                    radius: 60,
+                    radius: AppDimensions.avatarRadius,
                     backgroundImage: AssetImage(
-                        'assets/images/avatar7.png'), // Display user avatar
+                        AppStrings.avatarImagePath), // Display user avatar
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -82,8 +84,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       IconButton(
                         icon: Icon(Icons.edit,
-                            size: 14,
-                            color: Colors.black38), // Icon for editing nickname
+                            size: AppDimensions.iconSize,
+                            color: AppColors
+                                .editIconColor), // Icon for editing nickname
                         onPressed: () {
                           // Add functionality to edit nickname
                         },
@@ -94,9 +97,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.verified,
-                          size: 14, color: Colors.pinkAccent), // Verified icon
+                          size: AppDimensions.iconSize,
+                          color: AppColors.femaleColor), // Verified icon
                       Text(
-                        '80+ chats completed',
+                        AppStrings.chatsCompleted,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.normal),
                         textAlign: TextAlign.center,
@@ -110,18 +114,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Text(
                           description, // Display user description
                           style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
+                              fontSize: 14, fontWeight: FontWeight.normal),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       IconButton(
-                        icon: Icon(
-                          Icons.edit,
-                          size: 14,
-                          color: Colors.black38,
-                        ), // Icon for editing description
+                        icon: Icon(Icons.edit,
+                            size: AppDimensions.iconSize,
+                            color: AppColors
+                                .editIconColor), // Icon for editing description
                         onPressed: () {
                           // Add functionality to edit description
                         },
@@ -133,12 +134,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Container(
-            height: 150,
-            width: 250,
+            height: AppDimensions.bannerHeight,
+            width: AppDimensions.bannerWidth,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    'assets/images/INBOXPROFILEBANNER.jpg'), // Display profile banner
+                    AppStrings.profileBannerPath), // Display profile banner
                 fit: BoxFit.fill,
               ),
             ),
@@ -149,18 +150,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/Hygge_Text_Banner.png', // Hygge text banner
-                  height: 20,
-                  width: 40,
+                  AppStrings.hyggeBannerPath, // Hygge text banner
+                  height: AppDimensions.hyggeBannerHeight,
+                  width: AppDimensions.hyggeBannerWidth,
                   fit: BoxFit.fill,
                 ),
                 const SizedBox(width: 10),
                 const Text(
-                  'Let\'s Connect and Help Each Other',
+                  AppStrings.connectMessage,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: Colors.pinkAccent,
+                    color: AppColors.femaleColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -178,20 +179,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Color color;
 
     switch (gender) {
-      case 'male':
+      case AppStrings.genderMale:
         icon = Icons.male_rounded; // Male icon
-        color = Colors.blue;
+        color = AppColors.maleColor;
         break;
-      case 'female':
+      case AppStrings.genderFemale:
         icon = Icons.female_rounded; // Female icon
-        color = Colors.pinkAccent;
+        color = AppColors.femaleColor;
         break;
       default:
         icon = Icons.transgender; // Transgender icon
-        color = Colors.orange;
+        color = AppColors.otherColor;
         break;
     }
 
-    return Icon(icon, size: 26, color: color); // Return gender icon
+    return Icon(icon,
+        size: AppDimensions.genderIconSize, color: color); // Return gender icon
   }
 }

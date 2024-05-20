@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/otp', page: () => OtpScreen()), // OTP Screen
         GetPage(
             name: '/Registration',
-            page: () => Registration()), // Registration Screen
+            page: () => RegistrationScreen()), // Registration Screen
         GetPage(name: '/HomeScreen', page: () => HomeScreen()), // Home Screen
         GetPage(
             name: '/profilescreen',

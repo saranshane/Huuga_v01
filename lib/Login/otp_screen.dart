@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:login/constants.dart'; // Importing the constants file
 import 'package:login/Registration/registration_screen.dart';
 
 class OtpScreen extends StatelessWidget {
   final OtpVerificationController otpController =
       Get.put(OtpVerificationController());
 
-  // Custom button style for the Verify button
   BoxDecoration verifyButtonDecoration = BoxDecoration(
     gradient: LinearGradient(
-      colors: [Color(0xFF9431A5), Color(0xFFAC303B)],
+      colors: [AppColors.gradientStart, AppColors.gradientMiddle],
     ),
     borderRadius: BorderRadius.circular(30),
   );
@@ -20,12 +20,12 @@ class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic>? arguments =
-        Get.arguments as Map<String, dynamic>?; // Use '?' for null check
+        Get.arguments as Map<String, dynamic>?;
+
     if (arguments == null) {
-      // Handle null arguments, such as showing an error message or navigating back
       return Scaffold(
         body: Center(
-          child: Text('Error: No arguments provided'),
+          child: Text(AppStrings.noArgumentsError),
         ),
       );
     }
@@ -33,7 +33,6 @@ class OtpScreen extends StatelessWidget {
     final String type = arguments['type'];
     final String contact = arguments['contact'];
 
-    // Start the timer when the screen opens
     otpController.init(type, contact);
 
     return GetBuilder<OtpVerificationController>(
@@ -47,7 +46,7 @@ class OtpScreen extends StatelessWidget {
                   height: 320,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/OTP_Banner.jpeg'),
+                      image: AssetImage(AppStrings.appBarLoginImage),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -55,7 +54,7 @@ class OtpScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    'Enter the OTP sent to',
+                    AppStrings.enterOtpSentTo,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
@@ -71,7 +70,7 @@ class OtpScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(
-                      4,
+                      AppConstants.otpDigits,
                       (index) => SizedBox(
                         width: 50,
                         child: TextField(
@@ -81,7 +80,8 @@ class OtpScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           maxLength: 1,
                           onChanged: (String value) {
-                            if (value.length == 1 && index < 3) {
+                            if (value.length == 1 &&
+                                index < AppConstants.otpDigits - 1) {
                               otpController.focusNodes[index].unfocus();
                               FocusScope.of(context).requestFocus(
                                   otpController.focusNodes[index + 1]);
@@ -107,7 +107,7 @@ class OtpScreen extends StatelessWidget {
                       otpController.resendOTP();
                     },
                     child: Obx(() => Text(
-                          'Resend OTP In: ${otpController.timerSeconds.value} seconds',
+                          '${AppStrings.resendOtpIn}${otpController.timerSeconds.value} seconds',
                           style: TextStyle(fontSize: 16, color: Colors.blue),
                         )),
                   ),
@@ -122,13 +122,10 @@ class OtpScreen extends StatelessWidget {
                           "",
                           (previousValue, controller) =>
                               previousValue + controller.text);
-                      print("Entered OTP: $otp");
-                      print(
-                          "Type: $type, Contact: $contact"); // Print type and contact
                       otpController.verifyOTP(otp, type, contact);
                     },
                     child: Text(
-                      'Verify',
+                      AppStrings.verifyButtonText,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -148,51 +145,6 @@ void main() {
   ));
 }
 
-class OtpController extends GetxController {
-  var timerSeconds = 60.obs;
-  var controllers = List<TextEditingController>.generate(
-      4, (index) => TextEditingController()).obs;
-  var focusNodes = List<FocusNode>.generate(4, (index) => FocusNode()).obs;
-  var timer = Timer(Duration.zero, () {});
-
-  @override
-  void onInit() {
-    super.onInit();
-    startTimer();
-  }
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (timerSeconds.value == 0) {
-          timer.cancel();
-        } else {
-          timerSeconds.value--;
-        }
-      },
-    );
-  }
-
-  @override
-  void onClose() {
-    timer.cancel();
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    super.onClose();
-  }
-}
-
-class ProfileController extends GetxController {
-  final selectedGender = RxString('');
-
-  void updateSelectedGender(String gender) {
-    selectedGender.value = gender;
-  }
-}
-
 class OtpVerificationController extends GetxController {
   late String type;
   late String contact;
@@ -201,18 +153,18 @@ class OtpVerificationController extends GetxController {
   Timer? _timer;
 
   List<TextEditingController> controllers = List.generate(
-    4,
+    AppConstants.otpDigits,
     (index) => TextEditingController(),
   );
 
   List<FocusNode> focusNodes = List.generate(
-    4,
+    AppConstants.otpDigits,
     (index) => FocusNode(),
   );
 
   @override
   void onInit() {
-    timerSeconds = 60.obs; // Initialize timerSeconds with 60 seconds
+    timerSeconds = AppConstants.otpResendInterval.inSeconds.obs;
     type = '';
     contact = '';
     super.onInit();
@@ -221,11 +173,11 @@ class OtpVerificationController extends GetxController {
   void init(String type, String contact) {
     this.type = type;
     this.contact = contact;
-    startTimer(); // Start the timer when initialized
+    startTimer();
   }
 
   void startTimer() {
-    timerSeconds.value = 60;
+    timerSeconds.value = AppConstants.otpResendInterval.inSeconds;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (timerSeconds.value > 0) {
         timerSeconds.value--;
@@ -236,13 +188,12 @@ class OtpVerificationController extends GetxController {
   }
 
   void resendOTP() {
-    // Implement logic to resend OTP
     startTimer();
   }
 
   Future<void> verifyOTP(String otp, String type, String contact) async {
     try {
-      String url = 'http://172.20.10.5:3000/auth/verifyotp';
+      String url = AppStrings.otpVerifyUrl;
       Map<String, String> body = {
         'type': type,
         'contact': contact,
@@ -256,29 +207,18 @@ class OtpVerificationController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        // OTP verified successfully
         print("OTP verified successfully");
         Map<String, dynamic> data = jsonDecode(response.body);
         String userId = data["user"]["_id"];
         print(userId);
-        // Navigate to the ProfileScreen and pass user ID as an argument
-        Get.to(Registration(), arguments: {'userId': userId});
+        Get.to(RegistrationScreen(), arguments: {'userId': userId});
 
-        // Reset the timer upon successful OTP verification
         timerSeconds.value = 0;
-
-        // Handle success scenario
       } else {
-        // OTP verification failed
         print('Error verifying OTP: ${response.body}');
-
-        // Handle failure scenario
-        // You can display an error message to the user here
       }
     } catch (error) {
       print('Error verifying OTP: $error');
-
-      // Display error message to user
     }
   }
 }
