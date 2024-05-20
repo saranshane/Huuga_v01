@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/Home/home_screen.dart';
+import 'package:login/home/home_screen.dart';
 import '../constants.dart';
-import 'package:login/models/ChatMessage.dart';
+import 'package:login/models/chat_message.dart';
 
 class MessageScreen extends StatelessWidget {
   @override

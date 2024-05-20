@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/OnBoarding/entry_screen.dart';
-import 'package:login/Home/home_screen.dart';
+import 'package:login/on_boarding/entry_screen.dart';
+import 'package:login/home/home_screen.dart';
 
 class RegistrationController extends GetxController {
   var selectedGender = 'Male'.obs; // Observable variable for selected gender

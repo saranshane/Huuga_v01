@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Home/home_screen.dart';
-import 'package:login/Login/otp_screen.dart';
-import 'package:login/OnBoarding/entry_screen.dart';
-import 'package:login/OnBoarding/onboarding_screen.dart';
-import 'package:login/Login/login_screen.dart';
-import 'package:login/Registration/registration_screen.dart';
-import 'package:login/Profile/profile_screen.dart';
+import 'package:login/home/home_screen.dart';
+import 'package:login/login/otp_screen.dart';
+import 'package:login/on_boarding/entry_screen.dart';
+import 'package:login/on_boarding/onboarding_screen.dart';
+import 'package:login/login/login_screen.dart';
+import 'package:login/registration/registration_screen.dart';
+import 'package:login/profile/profile_screen.dart';
 
 void main() {
   runApp(MyApp());

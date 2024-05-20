@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/Home/home_screen.dart';
-import 'package:login/OnBoarding/onboarding_screen.dart';
+import 'package:login/home/home_screen.dart';
+import 'package:login/on_boarding/onboarding_screen.dart';
 
 // Controller for entry screen logic
 class EntryController extends GetxController {

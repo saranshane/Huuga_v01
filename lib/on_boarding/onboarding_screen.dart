@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/Login/login_screen.dart'; // Import the Login screen class
+import 'package:login/login/login_screen.dart'; // Import the Login screen class
 
 // Controller for managing onboarding screen state
 class OnboardingController extends GetxController {
