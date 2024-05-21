@@ -8,6 +8,7 @@ import 'package:login/constants.dart'; // Import the constants file
 
 class EntryController extends GetxController {
   Future<void> checkLoginStatus() async {
+    await Future.delayed(Duration(seconds: 10));
     final sharedPref = await SharedPreferences.getInstance();
     final isLoggedIn = sharedPref.getBool(AppKeys.keyLogin) ?? false;
 
