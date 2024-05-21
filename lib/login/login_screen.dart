@@ -534,7 +534,8 @@ class LoginScreen extends StatelessWidget {
                         ),
                         initialCountryCode: 'IN',
                         onChanged: (phone) {
-                          completePhoneNumber = phone.completeNumber;
+                          completePhoneNumber =
+                              phone.completeNumber.replaceAll('+', '');
                           print(completePhoneNumber);
                         },
                       ),

@@ -51,7 +51,7 @@ class AppStrings {
   static const String appBarLoginImage = 'assets/images/Banner2.png';
   static const String sendOtpUrl = 'http://172.20.10.5:3000/auth/sendotp';
   static const String otpVerifyUrl =
-      'http://your_api_url/auth/verifyotp'; // Update with your API URL
+      'http://172.20.10.5:3000/auth/verifyotp'; // Update with your API URL
 
   static const String enterOtpSentTo = 'Enter the OTP sent to';
   static const String resendOtpIn = 'Resend OTP In: ';
