@@ -284,7 +284,6 @@ class RegistrationController extends GetxController {
   var selectedGender = AppStrings.male.obs;
   var nickname = ''.obs;
   var description = ''.obs;
-
   void updateSelectedGender(String gender) {
     selectedGender.value = gender;
   }
