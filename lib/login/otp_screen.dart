@@ -46,7 +46,7 @@ class OtpScreen extends StatelessWidget {
                   height: 320,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(AppStrings.appBarLoginImage),
+                      image: AssetImage(AppStrings.otpBanner),
                       fit: BoxFit.fill,
                     ),
                   ),

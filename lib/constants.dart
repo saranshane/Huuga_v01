@@ -50,13 +50,13 @@ class AppStrings {
       "Please provide either email or phone number";
   static const String appBarLoginImage = 'assets/images/Banner2.png';
   static const String sendOtpUrl = 'http://172.20.10.5:3000/auth/sendotp';
-  static const String otpVerifyUrl =
-      'http://172.20.10.5:3000/auth/verifyotp'; // Update with your API URL
+  static const String otpVerifyUrl = 'http://172.20.10.5:3000/auth/verifyotp';
 
   static const String enterOtpSentTo = 'Enter the OTP sent to';
   static const String resendOtpIn = 'Resend OTP In: ';
   static const String verifyButtonText = 'Verify';
   static const String noArgumentsError = 'Error: No arguments provided';
+  static const String otpBanner = 'assets/images/OTP_Banner.jpeg';
 
   static const String myProfile = 'My Profile';
   static const String profnickname = 'John Doe';

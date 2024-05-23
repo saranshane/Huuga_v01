@@ -72,6 +72,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         keyboardType: TextInputType.emailAddress,
+                        textAlign: TextAlign.start,
                       ),
                       SizedBox(
                         height: 20,
@@ -97,6 +98,7 @@ class LoginScreen extends StatelessWidget {
                               phone.completeNumber.replaceAll('+', '');
                           print(completePhoneNumber);
                         },
+                        textAlign: TextAlign.start,
                       ),
                       SizedBox(height: 40),
                       ElevatedButton(
@@ -213,7 +215,7 @@ class AppBarContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppDimensions.bannerHeight,
+      height: 320,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppStrings.appBarLoginImage),
