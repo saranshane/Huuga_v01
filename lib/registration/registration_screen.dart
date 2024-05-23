@@ -275,9 +275,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:login/registration/disclaimer_screen.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/home/home_screen.dart';
 import 'package:login/constants.dart'; // Import the constants file
 
 class RegistrationController extends GetxController {
@@ -309,7 +309,7 @@ class RegistrationController extends GetxController {
         await saveDataToSharedPreferences(nickname, gender, description);
         print('User info updated successfully');
         print(response.body);
-        Get.offAll(() => HomeScreen());
+        Get.offAll(() => DisclaimerScreen());
       } else {
         print('Failed to update user details. Error: ${response.body}');
       }
