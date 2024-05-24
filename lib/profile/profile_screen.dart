@@ -36,6 +36,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  // Function to save user data to SharedPreferences
+  Future<void> saveUserData(
+      String nickname, String gender, String description) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('nickname', nickname);
+    await prefs.setString('gender', gender);
+    await prefs.setString('description', description);
+  }
+
+  // Function to edit nickname
+  void _editNickname() async {
+    String newNickname = await _showEditDialog('Edit Nickname', nickname);
+    if (newNickname.isNotEmpty) {
+      setState(() {
+        nickname = newNickname;
+      });
+      await saveUserData(nickname, gender, description);
+    }
+  }
+
+  // Function to edit description
+  void _editDescription() async {
+    String newDescription =
+        await _showEditDialog('Edit Description', description);
+    if (newDescription.isNotEmpty) {
+      setState(() {
+        description = newDescription;
+      });
+      await saveUserData(nickname, gender, description);
+    }
+  }
+
+  // Function to show edit dialog
+  Future<String> _showEditDialog(String title, String currentValue) async {
+    TextEditingController controller =
+        TextEditingController(text: currentValue);
+    return await showDialog<String>(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(title),
+              content: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  hintText: 'Enter new value',
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop('');
+                  },
+                ),
+                TextButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    Navigator.of(context).pop(controller.text);
+                  },
+                ),
+              ],
+            );
+          },
+        ) ??
+        '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,8 +141,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      _buildGenderIcon(gender), // Display gender icon
+                      DropdownButton<String>(
+                        value: gender,
+                        icon: Icon(Icons.arrow_drop_down,
+                            size: AppDimensions.iconSize),
+                        iconSize: AppDimensions.iconSize,
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.editIconColor),
+                        onChanged: (String? newValue) async {
+                          setState(() {
+                            gender = newValue!;
+                          });
+                          await saveUserData(nickname, gender, description);
+                        },
+                        items: <String>[
+                          AppStrings.genderMale,
+                          AppStrings.genderFemale,
+                          AppStrings.genderOther,
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: _buildGenderIcon(value),
+                          );
+                        }).toList(),
+                      ),
                       Text(
                         nickname,
                         style: TextStyle(
@@ -87,9 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             size: AppDimensions.iconSize,
                             color: AppColors
                                 .editIconColor), // Icon for editing nickname
-                        onPressed: () {
-                          // Add functionality to edit nickname
-                        },
+                        onPressed: _editNickname, // Edit nickname functionality
                       ),
                     ],
                   ),
@@ -123,9 +212,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             size: AppDimensions.iconSize,
                             color: AppColors
                                 .editIconColor), // Icon for editing description
-                        onPressed: () {
-                          // Add functionality to edit description
-                        },
+                        onPressed:
+                            _editDescription, // Edit description functionality
                       ),
                     ],
                   ),
