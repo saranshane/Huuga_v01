@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  Body(), // Primary tab content
+                  PrimaryTab(), // Primary tab content
                   ListView.builder(
                     itemCount: dataList.length,
                     itemBuilder: (context, index) {
