@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:login/questions/questions_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:login/home/inbox_body.dart';
+import 'package:login/home/primary_tab.dart';
 import 'package:login/constants.dart';
 
 class MessagesScreen extends StatefulWidget {
