@@ -31,9 +31,9 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             TabBar(
-              labelColor: Color(0xFF9431A5),
+              labelColor: Colors.pink[600],
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Color(0xFF9431A5),
+              indicatorColor: Colors.pink[600],
               tabs: [
                 Tab(text: 'Primary'),
                 Tab(text: 'Requests'),

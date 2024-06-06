@@ -488,279 +488,192 @@ List demoChatMessages = [
 ];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:login/home/home_screen.dart';
-// import '../constants.dart';
-// import 'package:login/models/chat_message.dart';
+// import 'package:flutter/widgets.dart';
+// import 'package:get/get.dart';
+// import 'package:get/get_state_manager/get_state_manager.dart';
+// import 'package:project/controller/chat_controller.dart';
+// import 'package:socket_io_client/socket_io_client.dart' as IO;
+// import 'package:project/model/Message.dart';
 
-// class MessageScreen extends StatelessWidget {
+// class ChatScreen extends StatefulWidget {
+//   const ChatScreen({super.key});
+
+//   @override
+//   State<ChatScreen> createState() => _ChatScreenState();
+// }
+
+// class _ChatScreenState extends State<ChatScreen> {
+//   final Color purple = Color(0xFF6c5ce7);
+//   final Color black = Color(0xFF191919);
+//   final TextEditingController msgInputController = TextEditingController();
+//   late IO.Socket socket;
+//   ChatController chatController = ChatController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     socket = IO.io('http://localhost:4000', IO.OptionBuilder()
+//         .setTransports(['websocket'])
+//         .disableAutoConnect()
+//         .setExtraHeaders({'foo': 'bar'})
+//         .build());
+//     socket.connect();
+//     setUpSocketListener();
+//   }
+
+//   @override
+//   void dispose() {
+//     socket.dispose();
+//     super.dispose();
+//   }
+
+//   void setUpSocketListener() {
+//     socket.on('message-receive', (data) {
+//       setState(() {
+//         chatController.chatMessages.add(Message.fromJson(data));
+//       });
+//     });
+//      socket.on('connected-user', (data) {
+//       setState(() {
+//         chatController.connectedUser.value = data; // Updated this line to use .value
+//       });
+//     });
+//   }
+
+//   void sendMessage(String text) {
+//     if (text.isEmpty) return;
+//     var messageJson = {
+//       "message": text,
+//       "sentBy": socket.id
+//     };
+//     socket.emit('message', messageJson);
+//     chatController.chatMessages.add(Message.fromJson(messageJson));
+//     msgInputController.clear();
+//   }
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: buildAppBar(context),
-//       body: Body(),
-//     );
-//   }
-
-//   AppBar buildAppBar(BuildContext context) {
-//     return AppBar(
-//       automaticallyImplyLeading: false,
-//       title: Row(
+//       backgroundColor: black,
+//       body: Column(
 //         children: [
-//           IconButton(
-//             icon: Icon(Icons.arrow_back_ios),
-//             onPressed: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(builder: (context) => HomeScreen()),
-//               );
-//             },
-//           ),
-//           CircleAvatar(
-//             backgroundImage: AssetImage("assets/images/avatar3.png"),
-//           ),
-//           SizedBox(width: kDefaultPadding * 0.75),
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 "Kristin Watson",
-//                 style: TextStyle(fontSize: 16),
-//               ),
-//               Text(
-//                 "Active 3m ago",
-//                 style: TextStyle(fontSize: 12),
-//               ),
-//             ],
-//           ),
-//           Spacer(),
-//           Row(
-//             children: [
-//               Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(40),
-//                   border: Border.all(color: Colors.grey),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Icon(Icons.timer, size: 14),
-//                     SizedBox(width: 2),
-//                     Text(
-//                       '40 mins left',
-//                       style: TextStyle(fontSize: 12),
-//                     ),
-//                   ],
+//           Obx(
+//             () => Container(
+//               padding: EdgeInsets.all(10),
+//               child: Text(
+//                 "Connected User: ${chatController.connectedUser.value}",
+//                 style: TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 20.0,
 //                 ),
 //               ),
-//               IconButton(
-//                 icon: Icon(Icons.more_vert),
-//                 onPressed: () {},
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class Body extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Expanded(
-//           child: Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-//             child: ListView.builder(
-//               itemCount: demoChatMessages.length,
-//               itemBuilder: (context, index) =>
-//                   Message(message: demoChatMessages[index]),
 //             ),
 //           ),
-//         ),
-//         ChatInputField(),
-//       ],
-//     );
-//   }
-// }
-
-// class Message extends StatelessWidget {
-//   const Message({
-//     required this.message,
-//     Key? key,
-//   }) : super(key: key);
-
-//   final ChatMessage message;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment:
-//           message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-//       children: [
-//         if (!message.isSender) ...[
-//           CircleAvatar(
-//             radius: 12,
-//             backgroundImage: AssetImage("assets/images/avatar3.png"),
+//           Expanded(
+//             flex: 9,
+//             child: Obx(
+//               () => ListView.builder(
+//                 itemCount: chatController.chatMessages.length,
+//                 itemBuilder: (context, index) {
+//                   var currentItem = chatController.chatMessages[index];
+//                   return MessageItem(
+//                     sentBy: currentItem.sentBy == socket.id,
+//                     message: currentItem.message,
+//                     timestamp: "1:10 A.M", // Adjust as needed
+//                   );
+//                 },
+//               ),
+//             ),
 //           ),
-//           SizedBox(width: kDefaultPadding / 2),
-//         ],
-//         TextMessage(message: message),
-//       ],
-//     );
-//   }
-// }
-
-// class TextMessage extends StatelessWidget {
-//   const TextMessage({
-//     required this.message,
-//     Key? key,
-//   }) : super(key: key);
-
-//   final ChatMessage message;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.only(top: kDefaultPadding),
-//       padding: EdgeInsets.symmetric(
-//         horizontal: kDefaultPadding * 0.75,
-//         vertical: kDefaultPadding / 2,
-//       ),
-//       decoration: BoxDecoration(
-//         color:
-//             message.isSender ? kPrimaryColor : kPrimaryColor.withOpacity(0.1),
-//         borderRadius: BorderRadius.circular(30),
-//       ),
-//       child: Text(
-//         message.text,
-//         style: TextStyle(
-//           color: message.isSender ? Colors.white : kSecondaryColor,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class ChatInputField extends StatelessWidget {
-//   const ChatInputField({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.symmetric(
-//         horizontal: kDefaultPadding,
-//         vertical: kDefaultPadding / 2,
-//       ),
-//       decoration: BoxDecoration(
-//         color: Theme.of(context).scaffoldBackgroundColor,
-//       ),
-//       child: SafeArea(
-//         child: Row(
-//           children: [
-//             Expanded(
-//               child: Container(
-//                 padding:
-//                     EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.10),
-//                 decoration: BoxDecoration(
-//                   color: kPrimaryColor.withOpacity(0.05),
-//                   borderRadius: BorderRadius.circular(40),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Expanded(
-//                       child: SizedBox(
-//                         height: 50,
-//                         child: TextField(
-//                           decoration: InputDecoration(
-//                             hintText: 'Type a message...',
-//                             hintStyle: TextStyle(color: Colors.grey),
-//                             contentPadding: EdgeInsets.symmetric(
-//                                 vertical: 10.0, horizontal: 10.0),
-//                             border: OutlineInputBorder(
-//                               borderRadius: BorderRadius.circular(20.0),
-//                             ),
-//                             filled: true,
-//                             fillColor: Colors.grey[200],
-//                             prefixIcon: Icon(Icons.emoji_emotions_outlined),
-//                             suffixIcon: Row(
-//                               mainAxisSize: MainAxisSize.min,
-//                               children: [
-//                                 IconButton(
-//                                   onPressed: () {
-//                                     print('Audio button tapped');
-//                                   },
-//                                   icon: Icon(Icons.mic),
-//                                 ),
-//                                 IconButton(
-//                                   onPressed: () {
-//                                     print('Send button tapped');
-//                                   },
-//                                   icon: Container(
-//                                     decoration: BoxDecoration(
-//                                       shape: BoxShape.circle,
-//                                       gradient: LinearGradient(
-//                                         colors: [
-//                                           Color(0xFF9431A5),
-//                                           Color(0xFFAC303B),
-//                                         ],
-//                                         begin: Alignment.topLeft,
-//                                         end: Alignment.bottomRight,
-//                                       ),
-//                                     ),
-//                                     child: Padding(
-//                                       padding: const EdgeInsets.all(6.0),
-//                                       child: Icon(Icons.send_rounded,
-//                                           color: Colors.white),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
+//           Padding(
+//             padding: const EdgeInsets.all(8.0),
+//             child: Row(
+//               children: [
+//                 Expanded(
+//                   child: TextField(
+//                     style: TextStyle(color: Colors.white),
+//                     cursorColor: purple,
+//                     controller: msgInputController,
+//                     decoration: InputDecoration(
+//                       enabledBorder: OutlineInputBorder(
+//                         borderSide: BorderSide(color: Colors.white),
+//                         borderRadius: BorderRadius.circular(10),
 //                       ),
+//                       focusedBorder: OutlineInputBorder(
+//                         borderSide: BorderSide(color: Colors.white),
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                       hintText: 'Type a message...',
+//                       hintStyle: TextStyle(color: Colors.white70),
 //                     ),
-//                   ],
+//                   ),
 //                 ),
+//                 SizedBox(width: 8),
+//                 Container(
+//                   decoration: BoxDecoration(
+//                     color: purple,
+//                     borderRadius: BorderRadius.circular(10),
+//                   ),
+//                   child: IconButton(
+//                     icon: Icon(Icons.send, color: Colors.white),
+//                     onPressed: () => sendMessage(msgInputController.text),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class MessageItem extends StatelessWidget {
+//   const MessageItem({
+//     Key? key,
+//     required this.sentBy,
+//     required this.message,
+//     required this.timestamp,
+//   }) : super(key: key);
+
+//   final bool sentBy;
+//   final String message;
+//   final String timestamp;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final Color purple = Color(0xFF6c5ce7);
+//     final Color black = Color(0xFF191919);
+//     final Color white = Colors.white;
+
+//     return Align(
+//       alignment: sentBy ? Alignment.centerRight : Alignment.centerLeft,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//         margin: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+//         decoration: BoxDecoration(
+//           color: sentBy ? purple : white,
+//           borderRadius: BorderRadius.circular(5),
+//         ),
+//         child: Column(
+//           crossAxisAlignment:
+//               sentBy ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               message,
+//               style: TextStyle(
+//                 color: sentBy ? white : purple,
+//                 fontSize: 16,
+//               ),
+//             ),
+//             SizedBox(height: 5),
+//             Text(
+//               timestamp,
+//               style: TextStyle(
+//                 color: (sentBy ? white : purple).withOpacity(0.7),
+//                 fontSize: 12,
 //               ),
 //             ),
 //           ],
