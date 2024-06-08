@@ -74,11 +74,13 @@ class Conversation {
   final Recipient recipient;
   final String text;
   final DateTime updatedAt;
+  int id;
 
   Conversation({
     required this.recipient,
     required this.text,
     required this.updatedAt,
+    required this.id,
   });
 }
 
@@ -95,24 +97,26 @@ final List<Conversation> demoConversations = [
     recipient: Recipient(name: 'John Doe', image: 'assets/images/avatar2.png'),
     text: 'Hello, how are you?',
     updatedAt: DateTime.now(),
+    id: 1,
   ),
   Conversation(
-    recipient:
-        Recipient(name: 'Jane Smith', image: 'assets/images/avatar7.png'),
-    text: 'Good morning!',
-    updatedAt: DateTime.now(),
-  ),
+      recipient:
+          Recipient(name: 'Jane Smith', image: 'assets/images/avatar7.png'),
+      text: 'Good morning!',
+      updatedAt: DateTime.now(),
+      id: 2),
   Conversation(
-    recipient:
-        Recipient(name: 'Alice Johnson', image: 'assets/images/avatar3.png'),
-    text: 'Are you available for a meeting?',
-    updatedAt: DateTime.now(),
-  ),
+      recipient:
+          Recipient(name: 'Alice Johnson', image: 'assets/images/avatar3.png'),
+      text: 'Are you available for a meeting?',
+      updatedAt: DateTime.now(),
+      id: 3),
   Conversation(
-    recipient: Recipient(name: 'Bob Brown', image: 'assets/images/avatar4.png'),
-    text: 'Let\'s catch up later.',
-    updatedAt: DateTime.now(),
-  ),
+      recipient:
+          Recipient(name: 'Bob Brown', image: 'assets/images/avatar4.png'),
+      text: 'Let\'s catch up later.',
+      updatedAt: DateTime.now(),
+      id: 4),
 ];
 
 

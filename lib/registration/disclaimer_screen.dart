@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/home/home_screen.dart';
+import 'package:login/messages/logenters.dart';
 import 'package:login/registration/registration_screen.dart';
 
 class DisclaimerScreen extends StatelessWidget {
@@ -78,7 +79,7 @@ class DisclaimerScreen extends StatelessWidget {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                Get.to(HomeScreen());
+                Get.to(LogEnters());
               },
               style: ElevatedButton.styleFrom(
                 elevation: 0,
