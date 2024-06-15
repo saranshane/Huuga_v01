@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/home/home_screen.dart';
+import 'package:login/messages/logenters.dart';
 import 'package:login/settings/settings_screen.dart'; // Import settings screen
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:login/constants.dart'; // Import the constants file
@@ -110,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Get.to(HomeScreen()); // Navigate back to HomeScreen
+            Get.to(LogEnters()); // Navigate back to HomeScreen
           },
         ),
         title: Text(AppStrings.myProfile),
