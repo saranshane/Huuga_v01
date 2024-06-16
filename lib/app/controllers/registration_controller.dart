@@ -27,14 +27,15 @@ class RegistrationController extends GetxController {
         'details': description,
       };
 
-      final response = await http.post(
+      final response = await http.patch(
         url,
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(body),
       );
 
       if (response.statusCode == 200) {
-        await saveDataToSharedPreferences(nickname, gender, description);
+        await saveDataToSharedPreferences(
+            userId, nickname, gender, description);
         print('User info updated successfully');
         print(response.body);
         Get.offAll(() => DisclaimerScreen());
@@ -47,8 +48,9 @@ class RegistrationController extends GetxController {
   }
 
   Future<void> saveDataToSharedPreferences(
-      String nickname, String gender, String description) async {
+      String userId, String nickname, String gender, String description) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userId', userId); // Save userId
     await prefs.setString('nickname', nickname);
     await prefs.setString('gender', gender);
     await prefs.setString('description', description);

@@ -51,9 +51,11 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         DropdownButton<String>(
                           value: controller.user.value.gender,
-                          icon: Icon(Icons.arrow_drop_down, size: AppDimensions.iconSize),
+                          icon: Icon(Icons.arrow_drop_down,
+                              size: AppDimensions.iconSize),
                           iconSize: AppDimensions.iconSize,
-                          style: TextStyle(fontSize: 16, color: AppColors.editIconColor),
+                          style: TextStyle(
+                              fontSize: 16, color: AppColors.editIconColor),
                           onChanged: (String? newValue) async {
                             if (newValue != null) {
                               await controller.updateGender(newValue);
@@ -72,22 +74,29 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Text(
                           controller.user.value.nickname,
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         IconButton(
-                          icon: Icon(Icons.edit, size: AppDimensions.iconSize, color: AppColors.editIconColor),
-                          onPressed: _editNickname, // Edit nickname functionality
+                          icon: Icon(Icons.edit,
+                              size: AppDimensions.iconSize,
+                              color: AppColors.editIconColor),
+                          onPressed:
+                              _editNickname, // Edit nickname functionality
                         ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.verified, size: AppDimensions.iconSize, color: AppColors.femaleColor),
+                        Icon(Icons.verified,
+                            size: AppDimensions.iconSize,
+                            color: AppColors.femaleColor),
                         Text(
                           AppStrings.chatsCompleted,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.normal),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -98,13 +107,17 @@ class ProfileScreen extends StatelessWidget {
                         Flexible(
                           child: Text(
                             controller.user.value.description,
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.edit, size: AppDimensions.iconSize, color: AppColors.editIconColor),
-                          onPressed: _editDescription, // Edit description functionality
+                          icon: Icon(Icons.edit,
+                              size: AppDimensions.iconSize,
+                              color: AppColors.editIconColor),
+                          onPressed:
+                              _editDescription, // Edit description functionality
                         ),
                       ],
                     ),
@@ -136,7 +149,10 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(width: 10),
                   const Text(
                     AppStrings.connectMessage,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.femaleColor),
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.femaleColor),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -151,7 +167,8 @@ class ProfileScreen extends StatelessWidget {
   // Function to edit nickname
   void _editNickname() async {
     final ProfileController controller = Get.find();
-    String newNickname = await _showEditDialog('Edit Nickname', controller.user.value.nickname);
+    String newNickname =
+        await _showEditDialog('Edit Nickname', controller.user.value.nickname);
     if (newNickname.isNotEmpty) {
       await controller.updateNickname(newNickname);
     }
@@ -160,7 +177,8 @@ class ProfileScreen extends StatelessWidget {
   // Function to edit description
   void _editDescription() async {
     final ProfileController controller = Get.find();
-    String newDescription = await _showEditDialog('Edit Description', controller.user.value.description);
+    String newDescription = await _showEditDialog(
+        'Edit Description', controller.user.value.description);
     if (newDescription.isNotEmpty) {
       await controller.updateDescription(newDescription);
     }
@@ -168,7 +186,8 @@ class ProfileScreen extends StatelessWidget {
 
   // Function to show edit dialog
   Future<String> _showEditDialog(String title, String currentValue) async {
-    TextEditingController controller = TextEditingController(text: currentValue);
+    TextEditingController controller =
+        TextEditingController(text: currentValue);
     return await showDialog<String>(
           context: Get.context!,
           builder: (BuildContext context) {
