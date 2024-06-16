@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/bindings/bindings.dart'; // Import the bindings file
+import 'package:login/app/routes/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,12 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Login',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blue,
       ),
-      initialRoute: '/EntryScreen', // Set initial route to onboarding screen
-      getPages: appPages, // Use the pages from bindings.dart
+      initialRoute: '/',
+      getPages: appPages,
     );
   }
 }
