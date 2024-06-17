@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/app/controllers/chat_controller.dart';
 import 'package:login/app/data/models/conversation.dart'; // Adjust import path as per your project structure
-import 'package:login/messages/message_screen.dart';
+// import 'package:login/messages/message_screen.dart';
 
 class ChatCard extends StatelessWidget {
   final Conversation conversation;

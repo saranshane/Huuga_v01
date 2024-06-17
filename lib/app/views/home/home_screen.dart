@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/app/widgets/primary_tab.dart';
-import 'package:login/app/widgets/requests_tab.dart'; // Import the new RequestsTab widget
+import 'package:login/app/widgets/requests_tab.dart';
 import 'package:login/app/views/profile/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
         leading: Image.asset(
           'assets/images/Hygge_Text_Banner.png',
           height: 30,
-          semanticLabel: 'Hygge Banner', // Semantic label for accessibility
+          semanticLabel: 'Hygge Banner',
         ),
         actions: [
           IconButton(
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               // Add notifications functionality
             },
-            tooltip: 'Notifications', // Tooltip for accessibility
+            tooltip: 'Notifications',
           ),
         ],
       ),
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 // Navigate to home screen
               },
-              tooltip: 'Home', // Tooltip for accessibility
+              tooltip: 'Home', // Tooltip
             ),
             IconButton(
               icon: Icon(Icons.person),

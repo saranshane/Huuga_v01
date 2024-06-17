@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login/app/controllers/request_controller.dart'; // Adjust the import path as necessary
+import 'package:login/app/controllers/request_controller.dart';
 
 class RequestsTab extends StatelessWidget {
   final RequestsController controller = Get.put(RequestsController());
@@ -99,6 +99,7 @@ class RequestsTab extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {
                                   // Handle cancel action
+                                  controller.requests.removeAt(index);
                                 },
                                 child: const Text('Cancel'),
                               ),

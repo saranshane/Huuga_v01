@@ -7,7 +7,7 @@ import 'package:login/app/views/login/login_screen.dart';
 import 'package:login/app/views/registration/registration_screen.dart';
 import 'package:login/app/views/profile/profile_screen.dart';
 import 'package:login/app/views/settings/settings_screen.dart';
-import 'package:login/messages/message_screen.dart';
+// import 'package:login/messages/message_screen.dart';
 
 final List<GetPage> appPages = [
   GetPage(name: '/', page: () => SplashScreen()), // Entry Screen
