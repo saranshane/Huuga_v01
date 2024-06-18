@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,8 +34,8 @@ class RequestsController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       final acceptedRequests = prefs.getStringList('acceptedRequests') ?? [];
 
-      final response = await http.get(
-          Uri.parse('http://172.20.10.5:3000/api/requests/notmadeby/$userId'));
+      final response = await http.get(Uri.parse(
+          'http://192.168.15.156:3000/api/requests/notmadeby/$userId'));
 
       if (response.statusCode == 200) {
         final List<dynamic> requestData = jsonDecode(response.body)['requests'];
@@ -73,7 +72,7 @@ class RequestsController extends GetxController {
   Future<Map<String, dynamic>?> fetchUserDetails(String senderId) async {
     try {
       final response = await http
-          .get(Uri.parse('http://172.20.10.5:3000/api/user/$senderId'));
+          .get(Uri.parse('http://192.168.15.156:3000/api/user/$senderId'));
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body)['user'];
@@ -99,7 +98,7 @@ class RequestsController extends GetxController {
 
     try {
       final response = await http.post(
-        Uri.parse('http://172.20.10.5:3000/api/acceptrequest'),
+        Uri.parse('http://192.168.15.156:3000/api/acceptrequest'),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode({
           'requestId': requestId,
