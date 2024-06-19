@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:login/app/data/models/profile_user_model.dart';
-import 'package:login/constants.dart';
+import 'package:login/app/data/constants/constants.dart';
 
 class ProfileController extends GetxController {
   var user = UserModel(

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:login/app/controllers/conversation_controller.dart';
 import 'package:login/app/data/models/conversation.dart';
 import 'package:login/app/widgets/chat_card.dart';
-import 'package:login/constants.dart';
-import 'package:login/questions/questions_screen.dart';
+import 'package:login/app/data/constants/constants.dart';
+import 'package:login/app/views/questions/questions_screen.dart';
 import 'dart:async';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -20,12 +20,12 @@ class PrimaryTab extends StatelessWidget {
             itemBuilder: (context, index) {
               Conversation conversation =
                   conversationController.conversations[index];
-              return ChatCard(
-                conversation: conversation,
-                onTap: () {
-                  Get.to(() => MessagesScreen(conversation: conversation));
-                },
-              );
+              // return ChatCard(
+              //   conversation: conversation,
+              //   onTap: () {
+              //     Get.to(() => MessagesScreen(conversation: conversation));
+              //   },
+              // );
             },
           )),
     );

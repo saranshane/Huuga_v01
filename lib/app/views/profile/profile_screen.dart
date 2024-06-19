@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/app/controllers/profile_controller.dart';
 import 'package:login/app/views/home/home_screen.dart';
-import 'package:login/constants.dart';
+import 'package:login/app/data/constants/constants.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
