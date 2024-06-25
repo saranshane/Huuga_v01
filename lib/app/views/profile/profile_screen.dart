@@ -1,9 +1,9 @@
-// profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/app/controllers/profile_controller.dart';
 import 'package:login/app/views/home/home_screen.dart';
 import 'package:login/app/data/constants/constants.dart';
+import 'package:login/app/views/settings/settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.settings), // Icon for settings
             onPressed: () {
-              // Get.to(SettingsScreen()); // Navigate to settings screen
+              Get.to(SettingsScreen()); // Navigate to settings screen
             },
           ),
         ],

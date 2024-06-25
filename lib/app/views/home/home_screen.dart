@@ -62,11 +62,11 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
-        elevation: 0,
         shape: CircularNotchedRectangle(),
+        notchMargin: 6.0,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
             IconButton(
               icon: Icon(Icons.home),
               onPressed: () {
@@ -74,6 +74,9 @@ class HomeScreen extends StatelessWidget {
               },
               tooltip: 'Home', // Tooltip
             ),
+            SizedBox(
+                width:
+                    48), // The dummy child to space out the icons and leave space for the FAB
             IconButton(
               icon: Icon(Icons.person),
               onPressed: () {

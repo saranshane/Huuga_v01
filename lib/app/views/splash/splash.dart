@@ -12,8 +12,7 @@ class SplashScreen extends StatelessWidget {
     splashController.checkLoginStatus();
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
+      body:Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -60,7 +59,7 @@ class SplashScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
+    
     );
   }
 }

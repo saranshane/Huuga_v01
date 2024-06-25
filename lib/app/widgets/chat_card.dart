@@ -22,23 +22,3 @@ class ChatCard extends StatelessWidget {
     );
   }
 }
-class ChatListView extends StatelessWidget {
-  final List<Conversation> conversations;
-  final VoidCallback onTap;
-
-  const ChatListView({Key? key, required this.conversations, required this.onTap})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: conversations.length,
-      itemBuilder: (context, index) {
-        return ChatCard(
-          conversation: conversations[index],
-          onTap: onTap,
-        );
-      },
-    );
-  }
-}

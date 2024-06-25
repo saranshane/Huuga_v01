@@ -49,11 +49,10 @@ class AppStrings {
   static const String provideContact =
       "Please provide either email or phone number";
   static const String appBarLoginImage = 'assets/images/Banner2.png';
-  static const String sendOtpUrl = 'http://192.168.15.156:3000/auth/sendotp';
-  static const String otpVerifyUrl =
-      'http://192.168.15.156:3000/auth/verifyotp';
+  static const String sendOtpUrl = 'http://172.20.10.5:3000/auth/sendotp';
+  static const String otpVerifyUrl = 'http://172.20.10.5:3000/auth/verifyotp';
   static const String updateUserUrl =
-      'http://192.168.15.156:3000/auth/updateuserinfo';
+      'http://172.20.10.5:3000/auth/updateuserinfo';
 
   static const String enterOtpSentTo = 'Enter the OTP sent to';
   static const String resendOtpIn = 'Resend OTP In: ';

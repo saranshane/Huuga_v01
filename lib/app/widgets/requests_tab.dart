@@ -25,37 +25,28 @@ class RequestsTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    '${item['time']}',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  Text('${item['time']}', style: TextStyle(fontSize: 16)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage(
-                            'assets/images/avatar.png'), // Replace 'assets/avatar.png' with your image path
+                        backgroundImage: AssetImage('assets/images/avatar.png'),
                       ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Name: ${item['name']}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          Text('Name: ${item['name']}',
+                              style: const TextStyle(fontSize: 16)),
                           const SizedBox(height: 5),
-                          Text(
-                            'Feeling: ${item['feeling']}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          Text('Feeling: ${item['feeling']}',
+                              style: const TextStyle(fontSize: 16)),
                           const SizedBox(height: 5),
-                          Text(
-                            'Talk About: ${item['talkAbout']}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(height: 10),
+                          Text('Talk About:',
+                          //  ${item['talkAbout']}
+                              style: const TextStyle(fontSize: 16)),
+                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -63,7 +54,6 @@ class RequestsTab extends StatelessWidget {
                                 color: Colors.transparent,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Handle accept and talk action
                                     controller.acceptRequest(item['requestId']);
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -78,8 +68,8 @@ class RequestsTab extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(50.0),
                                       gradient: const LinearGradient(
                                         colors: [
-                                          Color(0xFF9431A5), // Left side color
-                                          Color(0xFFAC303B), // Right side color
+                                          Color(0xFF9431A5),
+                                          Color(0xFFAC303B),
                                         ],
                                         begin: Alignment.topLeft,
                                         end: Alignment.topRight,
@@ -87,10 +77,9 @@ class RequestsTab extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(13.0),
-                                      child: Text(
-                                        'Accept & Talk',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
+                                      child: Text('Accept & Talk',
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ),
                                 ),
@@ -98,7 +87,6 @@ class RequestsTab extends StatelessWidget {
                               const SizedBox(width: 5),
                               ElevatedButton(
                                 onPressed: () {
-                                  // Handle cancel action
                                   controller.requests.removeAt(index);
                                 },
                                 child: const Text('Cancel'),

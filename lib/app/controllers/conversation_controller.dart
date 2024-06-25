@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:login/app/data/models/conversation.dart';
+import 'package:login/app/data/models/conversation.dart'; // Adjust import path as necessary
 
 class ConversationController extends GetxController {
   RxList<Conversation> conversations = <Conversation>[].obs;
@@ -18,8 +18,7 @@ class ConversationController extends GetxController {
 
     if (conversationsString != null) {
       List<dynamic> conversationsJson = jsonDecode(conversationsString);
-      conversations.value =
-          conversationsJson.map((json) => Conversation.fromJson(json)).toList();
+      conversations.value = conversationsJson.map((json) => Conversation.fromJson(json)).toList();
     }
   }
 
@@ -30,8 +29,9 @@ class ConversationController extends GetxController {
 
   Future<void> saveConversations() async {
     final prefs = await SharedPreferences.getInstance();
-    List<Map<String, dynamic>> conversationsJson =
-        conversations.map((c) => c.toJson()).toList();
+    List<Map<String, dynamic>> conversationsJson = conversations.map((c) => c.toJson()).toList();
     prefs.setString('conversations', jsonEncode(conversationsJson));
   }
 }
+
+
